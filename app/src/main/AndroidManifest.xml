@@ -13,6 +13,16 @@
         android:theme="@style/Theme.Kinoteka"
         tools:targetApi="31">
         <activity
+            android:name=".SerialActivity"
+            android:exported="false"
+            android:label="serial_title"/>
+        <activity
+            android:name=".film_item"
+            android:exported="false" />
+        <activity
+            android:name=".FilmActivity"
+            android:exported="false" />
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>

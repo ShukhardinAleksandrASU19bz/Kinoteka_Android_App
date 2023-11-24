@@ -2,7 +2,76 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/film"
-    tools:context=".MainActivity"/>
+    android:orientation="vertical"
+    tools:context=".MainActivity">
+
+    <LinearLayout
+        android:id="@+id/ll_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:alpha="0.5"
+        android:background="@drawable/film"
+        android:orientation="vertical">
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:paddingBottom="10dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/main_search_field"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="@string/search_word"
+                android:inputType="text"
+                android:padding="10dp"
+                android:textSize="20sp"></EditText>
+
+            <Button
+                android:id="@+id/button_main_search"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="onSearchClick"
+                android:text="@string/search"></Button>
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tV_search_result"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Результат поиска" />
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/button_serials"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:onClick="onSerialClick"
+        android:text="@string/button_serials"
+        app:layout_constraintBottom_toTopOf="@+id/button_films" />
+
+    <Button
+        android:id="@+id/button_films"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:onClick="onFilmClick"
+        android:text="@string/button_films"
+        app:layout_constraintBottom_toBottomOf="@+id/ll_layout" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
