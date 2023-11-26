@@ -3,14 +3,18 @@ package ru.ashukhardin.kinoteka;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.squareup.picasso.Picasso;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -23,7 +27,9 @@ public class MainActivity extends AppCompatActivity {
     private EditText searchField;
     private TextView searchResult;
     private Button searchButton;
+    private ImageView posterImg;
     private Movie movie;
+
     private static ApiInterface kinoapi;
     String token ="8NM326T-N1F4YK5-J644Y4B-94E73RB";
     @Override
@@ -33,56 +39,43 @@ public class MainActivity extends AppCompatActivity {
         searchField = findViewById(R.id.main_search_field);
         searchResult = findViewById(R.id.tV_search_result);
         searchButton = findViewById(R.id.button_main_search);
+        posterImg = findViewById(R.id.poster);
 
-
-        kinoapi = RetrofitFactory.getRetrofit();
-
-
-        Call<Movie> call = kinoapi.getMovie("5%20%D1%8D%D0%BB%D0%B5%D0%BC%D0%B5%D0%BD%D1%82");
-        call.enqueue(new Callback<Movie>() {
+        View.OnClickListener onClickListener = new View.OnClickListener() {
             @Override
-            public void onResponse(Call<Movie> call, Response<Movie> response) {
-                Log.d("123", "IN QUERY " + response.code() + response.body().getDocs());
-
-                Movie list = response.body();
-                searchResult.append(list.getDocs().get(0).getName()+ "\n");
-                searchResult.append(list.getDocs().get(0).getYear()+ "\n");
-                searchResult.append(list.getDocs().get(0).getGenres().get(1).getName() + "\n");
-                searchResult.append(list.getDocs().get(0).getId() + "\n");
-                //searchResult.setText(response.body().);
-               // Log.d("123", list);
-
-            }
-
-
-
-            @Override
-            public void onFailure(Call<Movie> call, Throwable t) {
-                searchResult.setText("Ошибка");
-            }
-        });
-    }
-       // View.OnClickListener onClickListener = new View.OnClickListener() {
-           /* @Override
             public void onClick(View v) {
                 kinoapi = RetrofitFactory.getRetrofit();
-                searchResult.setText("Ответ");
-                kinoapi.getMovie(token,"Малышка на миллион").enqueue(new Callback<ru.ashukhardin.kinoteka.utils.Movie>() {
+                Call<Movie> call = kinoapi.getMovie(String.valueOf(searchField.getText()));
+                call.enqueue(new Callback<Movie>() {
                     @Override
-                    public void onResponse(Call<ru.ashukhardin.kinoteka.utils.Movie> call, Response<ru.ashukhardin.kinoteka.utils.Movie> response) {
-                        searchResult.setText("Ответ"+response.body().getYear());
+                    public void onResponse(Call<Movie> call, Response<Movie> response) {
+                        Log.d("123", "IN QUERY " + response.code() + response.body().getDocs());
+
+                        movie = response.body();
+                        searchResult.append(movie.getDocs().get(0).getName()+ "\n");
+                        searchResult.append(movie.getDocs().get(0).getYear()+ "\n");
+                        searchResult.append(movie.getDocs().get(0).getGenres().get(1).getName() + "\n");
+                        searchResult.append(movie.getDocs().get(0).getId() + "\n");
+                        searchResult.append(movie.getDocs().get(0).getPoster().getUrl() + "\n");
+
+                        Picasso.with(MainActivity.this)
+                                .load(movie.getDocs().get(0).getPoster().getUrl())
+                                .placeholder(R.drawable.poster_placeholder)
+                                .error(R.drawable.poster_error)
+                                .into(posterImg);
+                        Intent intent = new Intent(MainActivity.this, film_item.class);
+                        intent.putExtra("logo",movie.getDocs().get(0).getLogo().getUrl() );
+                        startActivity(intent);
                     }
                     @Override
-                    public void onFailure(Call<ru.ashukhardin.kinoteka.utils.Movie> call, Throwable t) {
+                    public void onFailure(Call<Movie> call, Throwable t) {
                         Toast.makeText(MainActivity.this, "An error occurred during networking", Toast.LENGTH_SHORT).show();
                     }
                 });
-                //searchResult.setText(kinoapi.);
-            }*/
-       // };
-     // searchButton.setOnClickListener(onClickListener);
-
-
+            }
+        };
+        searchButton.setOnClickListener(onClickListener);
+    }
 
     public void onSerialClick(View view) {
         Intent intent = new Intent(MainActivity.this, SerialActivity.class);
