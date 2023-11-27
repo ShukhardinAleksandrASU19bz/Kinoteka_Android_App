@@ -43,14 +43,13 @@ public class MainActivity extends AppCompatActivity {
         searchButton = findViewById(R.id.button_main_search);
         posterImg = findViewById(R.id.poster);
 
-        /*
-        serialButton.setOnClickListener(new View.OnClickListener() {
+
+       /* serialButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Context context = MainActivity.this;
                 Intent serialActivitiIntent = new Intent(context,SerialActivity.class);
                 startActivity(serialActivitiIntent);
-                // startActivityForResult();
             }
         });*/
 
@@ -76,9 +75,15 @@ public class MainActivity extends AppCompatActivity {
                                 .placeholder(R.drawable.poster_placeholder)
                                 .error(R.drawable.poster_error)
                                 .into(posterImg);
-                        Intent intent = new Intent(MainActivity.this, film_item.class);
+                        Intent intent = new Intent(MainActivity.this, FilmItemActivity.class);
+                        intent.putExtra("poster",movie.getDocs().get(0).getPoster().getUrl() );
                         intent.putExtra("logo",movie.getDocs().get(0).getLogo().getUrl() );
-                       // intent.putExtra("movie_id",movie.getDocs().get(0).getId());
+                        intent.putExtra("movie_id",movie.getDocs().get(0).getId());
+                        intent.putExtra("name",movie.getDocs().get(0).getName());
+                        intent.putExtra("genre",movie.getDocs().get(0).getGenres().get(0).getName());
+                        intent.putExtra("year",movie.getDocs().get(0).getYear());
+                        intent.putExtra("desc",movie.getDocs().get(0).getDescription());
+
 
                         startActivity(intent);
                     }
@@ -92,26 +97,24 @@ public class MainActivity extends AppCompatActivity {
         searchButton.setOnClickListener(onClickListener);
     }
 
-   /*
+
     public void onSerialClick(View view) {
         Intent intent = new Intent(MainActivity.this, SerialActivity.class);
         startActivity(intent);
 
-    }*/
+    }
 
     public void onFilmClick(View view) {
         Intent intent = new Intent(MainActivity.this, FilmActivity.class);
         startActivity(intent);
     }
 
-    public void onSearchClick(View view) {
+    /* public void onSearchClick(View view) {
 
-    }
+    }*/
 
     public void onKPButtonClick(View view) {
-        //openWebPage("https://www.kinopoisk.ru/");
-        openWebPage("https://www.google.com");
-
+        openWebPage("https://www.kinopoisk.ru/");
     }
     private void openWebPage(String url) {
         Uri webpage = Uri.parse(url);

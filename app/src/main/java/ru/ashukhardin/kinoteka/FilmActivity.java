@@ -23,10 +23,11 @@ import ru.ashukhardin.kinoteka.utils.RV_adapter;
 public class FilmActivity extends AppCompatActivity {
 
     private RecyclerView movieList;
+    private AppDB appDB;
     private RV_adapter movieAdapter;
     private String nameDB="movie_database";
-    private Button addButton;
     private List<movie> list;
+    private  MovieDBInterface movieDBInterface;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,13 +35,10 @@ public class FilmActivity extends AppCompatActivity {
         setContentView(R.layout.activity_film);
         movieList = findViewById(R.id.recyclerView_movie);
 
-        addButton = findViewById(R.id.bt_FA_add);
-
-
-        AppDB appDB = Room.databaseBuilder(getApplicationContext(),AppDB.class,nameDB)
+        appDB = Room.databaseBuilder(getApplicationContext(),AppDB.class,nameDB)
                 .allowMainThreadQueries()
                 .build();
-        MovieDBInterface movieDBInterface = appDB.movieDBInterface();
+        movieDBInterface = appDB.movieDBInterface();
         list = movieDBInterface.getAll();
 
 
@@ -53,13 +51,4 @@ public class FilmActivity extends AppCompatActivity {
 
     }
 
-    public void onAddButtonClick(View view) {
-        Intent intent = new Intent(FilmActivity.this, MovieAddActivity.class);
-        //startActivityForResult(intent,1);
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-    }
 }

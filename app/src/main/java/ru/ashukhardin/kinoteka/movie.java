@@ -86,14 +86,5 @@ public class movie {
         this.poster = poster;
         this.genre = genre;
     }
-    public movie(String name) {
-        this.id = id;
-        this.name = name;
-        this.year = year;
-        this.kp_id = kp_id;
-        this.description = description;
-        this.poster = poster;
-        this.genre = genre;
-    }
 
 }

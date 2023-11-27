@@ -23,7 +23,7 @@
             android:exported="false"
             android:label="serial_title" />
         <activity
-            android:name=".film_item"
+            android:name=".FilmItemActivity"
             android:exported="false" />
         <activity
             android:name=".FilmActivity"

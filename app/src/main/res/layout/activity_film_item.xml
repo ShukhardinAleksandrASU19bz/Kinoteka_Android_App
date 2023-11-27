@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".film_item">
+    tools:context=".FilmItemActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -13,56 +13,62 @@
         >
 
         <ImageView
-            android:id="@+id/imageView"
+            android:id="@+id/iV_poster"
             android:layout_width="match_parent"
-            android:layout_height="297dp"
-            tools:srcCompat="@tools:sample/avatars" />
-
-        <ImageView
-            android:id="@+id/IV_logo"
-            android:layout_width="match_parent"
-            android:layout_height="143dp"
-            android:background="@drawable/poster_placeholder"
-             />
+            android:layout_height="300dp" />
 
         <TextView
-            android:id="@+id/textView"
+            android:id="@+id/tV_movieName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="TextView" />
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="125dp"
+            android:layout_height="wrap_content"
             android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/textView2"
+                android:id="@+id/tV_genre"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="TextView" />
 
             <TextView
-                android:id="@+id/textView3"
+                android:id="@+id/tV_year"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="TextView" />
 
-            <TextView
-                android:id="@+id/textView4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="TextView" />
         </LinearLayout>
+
+        <TextView
+            android:id="@+id/tV_description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="TextView" />
+
+        <ImageView
+            android:id="@+id/IV_logo"
+            android:layout_width="match_parent"
+            android:layout_height="110dp" />
+
+        <Button
+            android:id="@+id/bt_add_too_collection"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="onAddColClick"
+            android:text="Добавить в коллекцию" />
 
         <Button
             android:id="@+id/kp_about_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:onClick="onKpAboutButtonClick"
-            android:text="Button" />
+            android:text="Открыть на кинопоиске" />
+
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

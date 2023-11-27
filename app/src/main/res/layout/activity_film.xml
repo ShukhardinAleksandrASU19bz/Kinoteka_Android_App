@@ -11,11 +11,4 @@
         android:layout_height="match_parent"
         tools:listitem="@layout/movie_list_item" />
 
-    <Button
-        android:id="@+id/bt_FA_add"
-        android:layout_width="196dp"
-        android:layout_height="wrap_content"
-        android:onClick="onAddButtonClick"
-        android:text="Button" />
-
 </FrameLayout>
