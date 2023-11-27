@@ -57,5 +57,12 @@
                 android:layout_weight="1"
                 android:text="TextView" />
         </LinearLayout>
+
+        <Button
+            android:id="@+id/kp_about_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="onKpAboutButtonClick"
+            android:text="Button" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

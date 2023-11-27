@@ -10,16 +10,19 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.List;
+
 import ru.ashukhardin.kinoteka.FilmActivity;
 import ru.ashukhardin.kinoteka.R;
+import ru.ashukhardin.kinoteka.movie;
 
 public class RV_adapter extends RecyclerView.Adapter<RV_adapter.MovieViewHolder>{
-    private int movieItems;
+    private final List<movie> movieItems;
     private static int viewHolderCount;
     private Context parent;
-    public RV_adapter(int countOfItems, Context parent)
+    public RV_adapter(List<movie> movieList, Context parent)
     {
-        movieItems = countOfItems;
+        this.movieItems = movieList;
         viewHolderCount= 0;
         this.parent = parent;
     }
@@ -39,12 +42,14 @@ public class RV_adapter extends RecyclerView.Adapter<RV_adapter.MovieViewHolder>
 
     @Override
     public void onBindViewHolder(@NonNull MovieViewHolder holder, int position) {
-        holder.bind(position);
+        movie item = movieItems.get(position);
+        holder.listItemMovieView.setText(item.getName());
+        //holder.bind(position);
     }
 
     @Override
     public int getItemCount() {
-        return movieItems;
+        return movieItems.size();
     }
 
     class MovieViewHolder extends RecyclerView.ViewHolder {
@@ -63,8 +68,7 @@ public class RV_adapter extends RecyclerView.Adapter<RV_adapter.MovieViewHolder>
                 }
             });
         }
-        void bind(int listIndex) {
-            listItemMovieView.setText(String.valueOf(listIndex));
-        }
+     //   void bind(int listIndex) {listItemMovieView.setText();
+      //  }
     }
 }

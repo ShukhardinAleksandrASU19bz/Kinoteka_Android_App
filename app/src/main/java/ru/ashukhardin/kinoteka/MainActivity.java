@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -42,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
         searchButton = findViewById(R.id.button_main_search);
         posterImg = findViewById(R.id.poster);
 
+        /*
         serialButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -50,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(serialActivitiIntent);
                 // startActivityForResult();
             }
-        });
+        });*/
 
         View.OnClickListener onClickListener = new View.OnClickListener() {
             @Override
@@ -76,6 +78,8 @@ public class MainActivity extends AppCompatActivity {
                                 .into(posterImg);
                         Intent intent = new Intent(MainActivity.this, film_item.class);
                         intent.putExtra("logo",movie.getDocs().get(0).getLogo().getUrl() );
+                       // intent.putExtra("movie_id",movie.getDocs().get(0).getId());
+
                         startActivity(intent);
                     }
                     @Override
@@ -104,4 +108,16 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    public void onKPButtonClick(View view) {
+        //openWebPage("https://www.kinopoisk.ru/");
+        openWebPage("https://www.google.com");
+
+    }
+    private void openWebPage(String url) {
+        Uri webpage = Uri.parse(url);
+        Intent intent = new Intent(Intent.ACTION_VIEW, webpage);
+        if (intent.resolveActivity(getPackageManager()) != null) {
+            startActivity(intent);
+        }
+    }
 }

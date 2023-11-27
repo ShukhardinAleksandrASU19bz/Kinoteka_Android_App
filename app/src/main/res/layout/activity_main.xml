@@ -79,5 +79,14 @@
         android:text="@string/button_films"
         app:layout_constraintBottom_toBottomOf="@+id/ll_layout" />
 
+    <Button
+        android:id="@+id/KP_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:onClick="onKPButtonClick"
+        android:text="Button"
+        app:layout_constraintBottom_toTopOf="@+id/button_serials" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
