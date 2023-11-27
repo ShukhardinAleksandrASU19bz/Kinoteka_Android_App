@@ -29,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
     private Button searchButton;
     private ImageView posterImg;
     private Movie movie;
+    private Button serialButton;
 
     private static ApiInterface kinoapi;
     String token ="8NM326T-N1F4YK5-J644Y4B-94E73RB";
@@ -40,6 +41,16 @@ public class MainActivity extends AppCompatActivity {
         searchResult = findViewById(R.id.tV_search_result);
         searchButton = findViewById(R.id.button_main_search);
         posterImg = findViewById(R.id.poster);
+
+        serialButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Context context = MainActivity.this;
+                Intent serialActivitiIntent = new Intent(context,SerialActivity.class);
+                startActivity(serialActivitiIntent);
+                // startActivityForResult();
+            }
+        });
 
         View.OnClickListener onClickListener = new View.OnClickListener() {
             @Override
@@ -77,11 +88,12 @@ public class MainActivity extends AppCompatActivity {
         searchButton.setOnClickListener(onClickListener);
     }
 
+   /*
     public void onSerialClick(View view) {
         Intent intent = new Intent(MainActivity.this, SerialActivity.class);
         startActivity(intent);
 
-    }
+    }*/
 
     public void onFilmClick(View view) {
         Intent intent = new Intent(MainActivity.this, FilmActivity.class);
