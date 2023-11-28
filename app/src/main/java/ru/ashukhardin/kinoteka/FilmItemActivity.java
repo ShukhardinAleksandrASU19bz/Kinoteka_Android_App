@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
@@ -34,7 +35,8 @@ public class FilmItemActivity extends AppCompatActivity {
     private TextView descTextview;
     private MovieDBInterface movieDBInterface;
     private Intent mainActIntent;
-     private Button kp_aboutButton;
+    private Button kp_aboutButton;
+     private int action;
 
 
 
@@ -84,6 +86,7 @@ public class FilmItemActivity extends AppCompatActivity {
             yearTextview.setText("Год: " + year);
             genreTextview.setText("Жанр: " + genre);
             nameTextview.setText("Название: " + name);
+            action = 1;
 
             Picasso.with(FilmItemActivity.this)
                     .load(logoUrl)
@@ -97,7 +100,7 @@ public class FilmItemActivity extends AppCompatActivity {
                     .error(R.drawable.poster_error)
                     .into(posterImg);
 
-            movieDBInterface = App.getInstance().getDatabase().movieDBInterface();
+
         } else if (mainActIntent.getStringExtra("action").equals("add")) {
             kp_aboutButton.setClickable(false);
             kp_aboutButton.setVisibility(View.INVISIBLE);
@@ -106,10 +109,7 @@ public class FilmItemActivity extends AppCompatActivity {
             genreTextview.setHint("Введите Жанр: ");
             nameTextview.setHint("Ввведите Название: ");
 
-            name = String.valueOf(nameTextview.getText());
-            description = String.valueOf(descTextview.getText());
-            genre = String.valueOf(genreTextview.getText());
-            //year =Integer.parseInt(String.valueOf(yearTextview.getText()));
+            action =2;
         }
 
     }
@@ -127,13 +127,32 @@ public class FilmItemActivity extends AppCompatActivity {
     }
 
     public void onAddColClick(View view) {
+        movieDBInterface = App.getInstance().getDatabase().movieDBInterface();
         movie newItem = new movie();
-        newItem.setName(name);
-        newItem.setDescription(description);
-        newItem.setGenre(genre);
-        newItem.setYear(year);
-        newItem.setKp_id(movie_id);
-        newItem.setPoster(posterUrl);
+        if (action == 1) {
+            newItem.setName(name);
+            newItem.setDescription(description);
+            newItem.setGenre(genre);
+            newItem.setYear(year);
+            newItem.setKp_id(movie_id);
+            newItem.setPoster(posterUrl);
+        }else if (action == 2){
+            name = String.valueOf(nameTextview.getText());
+            description = String.valueOf(descTextview.getText());
+            genre = String.valueOf(genreTextview.getText());
+            year =Integer.parseInt(String.valueOf(yearTextview.getText()));
+            posterUrl = null;
+            movie_id = 0;
+
+            newItem.setName(name);
+            newItem.setDescription(description);
+            newItem.setGenre(genre);
+            newItem.setYear(year);
+            newItem.setKp_id(movie_id);
+            newItem.setPoster(posterUrl);
+        }
         movieDBInterface.insert(newItem);
+        Toast.makeText(this, "Фильм добавлен в коллекцию", Toast.LENGTH_SHORT).show();
+
     }
 }

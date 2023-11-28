@@ -39,10 +39,10 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         searchField = findViewById(R.id.main_search_field);
-        searchResult = findViewById(R.id.tV_search_result);
+        //searchResult = findViewById(R.id.tV_search_result);
         searchButton = findViewById(R.id.button_main_search);
         addMovieButton = findViewById(R.id.bt_addMovieMain);
-        posterImg = findViewById(R.id.poster);
+        //posterImg = findViewById(R.id.poster);
 
         View.OnClickListener onClickListener = new View.OnClickListener() {
             @Override

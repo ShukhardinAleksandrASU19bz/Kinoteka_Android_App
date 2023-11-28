@@ -26,12 +26,12 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="90dp"
             android:orientation="horizontal">
 
             <EditText
                 android:id="@+id/main_search_field"
-                android:layout_width="303dp"
+                android:layout_width="300dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical|start"
                 android:hint="@string/search_word"
@@ -49,17 +49,9 @@
 
         </LinearLayout>
 
-        <TextView
-            android:id="@+id/tV_search_result"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Результат поиска" />
-
-        <ImageView
-            android:id="@+id/poster"
+        <RadioGroup
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            tools:srcCompat="@tools:sample/avatars" />
+            android:layout_height="wrap_content" />
 
     </LinearLayout>
 
