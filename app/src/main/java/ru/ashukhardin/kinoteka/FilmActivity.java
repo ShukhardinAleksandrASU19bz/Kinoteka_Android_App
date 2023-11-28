@@ -1,8 +1,12 @@
 package ru.ashukhardin.kinoteka;
 
 import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.Observer;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.room.PrimaryKey;
@@ -16,6 +20,7 @@ import android.widget.Button;
 
 import java.util.List;
 
+import ru.ashukhardin.kinoteka.utils.App;
 import ru.ashukhardin.kinoteka.utils.AppDB;
 import ru.ashukhardin.kinoteka.utils.MovieDBInterface;
 import ru.ashukhardin.kinoteka.utils.RV_adapter;
@@ -23,9 +28,7 @@ import ru.ashukhardin.kinoteka.utils.RV_adapter;
 public class FilmActivity extends AppCompatActivity {
 
     private RecyclerView movieList;
-    private AppDB appDB;
     private RV_adapter movieAdapter;
-    private String nameDB="movie_database";
     private List<movie> list;
     private  MovieDBInterface movieDBInterface;
 
@@ -35,12 +38,8 @@ public class FilmActivity extends AppCompatActivity {
         setContentView(R.layout.activity_film);
         movieList = findViewById(R.id.recyclerView_movie);
 
-        appDB = Room.databaseBuilder(getApplicationContext(),AppDB.class,nameDB)
-                .allowMainThreadQueries()
-                .build();
-        movieDBInterface = appDB.movieDBInterface();
+        movieDBInterface = App.getInstance().getDatabase().movieDBInterface();
         list = movieDBInterface.getAll();
-
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         movieList.setLayoutManager(layoutManager);
@@ -48,6 +47,30 @@ public class FilmActivity extends AppCompatActivity {
 
         movieAdapter = new RV_adapter(list,this);
         movieList.setAdapter(movieAdapter);
+
+        LiveData<List<movie>> liveData = movieDBInterface.getAllLive();
+        liveData.observe(this, new Observer<List<movie>>() {
+            @Override
+            public void onChanged(List<movie> movieList) {
+                list.clear();
+                list.addAll(movieDBInterface.getAll());
+                movieAdapter.notifyDataSetChanged();
+            }
+        });
+
+        new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT
+        | ItemTouchHelper.RIGHT) {
+            @Override
+            public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
+                return false;
+            }
+
+            @Override
+            public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+                movie item = list.get(viewHolder.getAdapterPosition());
+                movieDBInterface.delete(item);
+            }
+        }).attachToRecyclerView(movieList);
 
     }
 

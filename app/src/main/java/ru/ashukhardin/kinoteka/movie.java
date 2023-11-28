@@ -86,5 +86,4 @@ public class movie {
         this.poster = poster;
         this.genre = genre;
     }
-
 }

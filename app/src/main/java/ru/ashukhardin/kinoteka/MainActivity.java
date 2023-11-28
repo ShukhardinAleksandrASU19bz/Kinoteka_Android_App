@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
     private Button searchButton;
     private ImageView posterImg;
     private Movie movie;
-    private Button serialButton;
+    private Button addMovieButton;
 
     private static ApiInterface kinoapi;
     String token ="8NM326T-N1F4YK5-J644Y4B-94E73RB";
@@ -41,17 +41,8 @@ public class MainActivity extends AppCompatActivity {
         searchField = findViewById(R.id.main_search_field);
         searchResult = findViewById(R.id.tV_search_result);
         searchButton = findViewById(R.id.button_main_search);
+        addMovieButton = findViewById(R.id.bt_addMovieMain);
         posterImg = findViewById(R.id.poster);
-
-
-       /* serialButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Context context = MainActivity.this;
-                Intent serialActivitiIntent = new Intent(context,SerialActivity.class);
-                startActivity(serialActivitiIntent);
-            }
-        });*/
 
         View.OnClickListener onClickListener = new View.OnClickListener() {
             @Override
@@ -76,6 +67,7 @@ public class MainActivity extends AppCompatActivity {
                                 .error(R.drawable.poster_error)
                                 .into(posterImg);
                         Intent intent = new Intent(MainActivity.this, FilmItemActivity.class);
+                        intent.putExtra("action", "search");
                         intent.putExtra("poster",movie.getDocs().get(0).getPoster().getUrl() );
                         intent.putExtra("logo",movie.getDocs().get(0).getLogo().getUrl() );
                         intent.putExtra("movie_id",movie.getDocs().get(0).getId());
@@ -83,8 +75,6 @@ public class MainActivity extends AppCompatActivity {
                         intent.putExtra("genre",movie.getDocs().get(0).getGenres().get(0).getName());
                         intent.putExtra("year",movie.getDocs().get(0).getYear());
                         intent.putExtra("desc",movie.getDocs().get(0).getDescription());
-
-
                         startActivity(intent);
                     }
                     @Override
@@ -97,30 +87,24 @@ public class MainActivity extends AppCompatActivity {
         searchButton.setOnClickListener(onClickListener);
     }
 
-
-    public void onSerialClick(View view) {
-        Intent intent = new Intent(MainActivity.this, SerialActivity.class);
-        startActivity(intent);
-
-    }
-
     public void onFilmClick(View view) {
         Intent intent = new Intent(MainActivity.this, FilmActivity.class);
         startActivity(intent);
     }
 
-    /* public void onSearchClick(View view) {
-
-    }*/
-
     public void onKPButtonClick(View view) {
         openWebPage("https://www.kinopoisk.ru/");
     }
-    private void openWebPage(String url) {
+    public void openWebPage(String url) {
         Uri webpage = Uri.parse(url);
         Intent intent = new Intent(Intent.ACTION_VIEW, webpage);
         if (intent.resolveActivity(getPackageManager()) != null) {
             startActivity(intent);
         }
+    }
+    public void onAddMovieClick(View view) {
+        Intent intent = new Intent(MainActivity.this, FilmItemActivity.class);
+        intent.putExtra("action", "add" );
+        startActivity(intent);
     }
 }

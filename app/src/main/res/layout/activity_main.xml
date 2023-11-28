@@ -31,8 +31,9 @@
 
             <EditText
                 android:id="@+id/main_search_field"
-                android:layout_width="wrap_content"
+                android:layout_width="303dp"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical|start"
                 android:hint="@string/search_word"
                 android:inputType="text"
                 android:padding="10dp"
@@ -42,6 +43,7 @@
                 android:id="@+id/button_main_search"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical|end"
                 android:onClick="onSearchClick"
                 android:text="@string/search"></Button>
 
@@ -62,31 +64,43 @@
     </LinearLayout>
 
     <Button
-        android:id="@+id/button_serials"
+        android:id="@+id/bt_addMovieMain"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
-        android:onClick="onSerialClick"
+        android:onClick="onAddMovieClick"
         android:text="@string/button_serials"
-        app:layout_constraintBottom_toTopOf="@+id/button_films" />
+        app:layout_constraintBottom_toTopOf="@+id/button_films"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/button_films"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
         android:onClick="onFilmClick"
         android:text="@string/button_films"
-        app:layout_constraintBottom_toBottomOf="@+id/ll_layout" />
+        app:layout_constraintBottom_toBottomOf="@+id/ll_layout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/KP_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
         android:onClick="onKPButtonClick"
         android:text="Кинопоиск -Главная"
-        app:layout_constraintBottom_toTopOf="@+id/button_serials" />
+        app:layout_constraintBottom_toTopOf="@+id/bt_addMovieMain"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

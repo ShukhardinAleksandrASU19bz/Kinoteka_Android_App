@@ -2,7 +2,7 @@
     <string name="app_name">Kinoteka</string>
     <string name="list_serial_name">SPISOK Serials</string>
     <string name="button_films">Коллекция фильмов</string>
-    <string name="button_serials">Сериалы</string>
+    <string name="button_serials">Добавить фильм в коллекцию</string>
     <string name="search_word">Введите название</string>
     <string name="search">Поиск</string>
 

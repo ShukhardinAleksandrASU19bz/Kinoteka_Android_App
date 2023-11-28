@@ -1,6 +1,7 @@
 package ru.ashukhardin.kinoteka.utils;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +14,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 
 import ru.ashukhardin.kinoteka.FilmActivity;
+import ru.ashukhardin.kinoteka.FilmItemActivity;
+import ru.ashukhardin.kinoteka.MainActivity;
 import ru.ashukhardin.kinoteka.R;
 import ru.ashukhardin.kinoteka.movie;
 
@@ -64,7 +67,9 @@ public class RV_adapter extends RecyclerView.Adapter<RV_adapter.MovieViewHolder>
                 @Override
                 public void onClick(View v) {
                     int positionIndex = getAdapterPosition();
-                    Toast.makeText(parent, "elemet" + positionIndex + "najat", Toast.LENGTH_SHORT).show();
+                    movie item = movieItems.get(positionIndex);
+                    //holder.listItemMovieView.setText(item.getName());
+                    //Toast.makeText(parent, "elemet" + positionIndex + "najat", Toast.LENGTH_SHORT).show();
                 }
             });
         }

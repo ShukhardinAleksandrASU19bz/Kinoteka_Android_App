@@ -7,11 +7,13 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
+import ru.ashukhardin.kinoteka.utils.App;
 import ru.ashukhardin.kinoteka.utils.AppDB;
 import ru.ashukhardin.kinoteka.utils.MovieDBInterface;
 
@@ -26,12 +28,14 @@ public class FilmItemActivity extends AppCompatActivity {
     private  String description;
     private  String genre;
     private  int year;
-    private String nameDB="movie_database";
     private TextView nameTextview;
     private TextView genreTextview;
     private TextView yearTextview;
     private TextView descTextview;
     private MovieDBInterface movieDBInterface;
+    private Intent mainActIntent;
+     private Button kp_aboutButton;
+
 
 
 
@@ -40,6 +44,8 @@ public class FilmItemActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_film_item);
 
+
+        kp_aboutButton = findViewById(R.id.kp_about_button);
         logoImg = findViewById(R.id.IV_logo);
         nameTextview = findViewById(R.id.tV_movieName);
         genreTextview = findViewById(R.id.tV_genre);
@@ -47,45 +53,65 @@ public class FilmItemActivity extends AppCompatActivity {
         descTextview = findViewById(R.id.tV_description);
         posterImg = findViewById(R.id.iV_poster);
 
-
-
-        /*
-        Intent mainActIntent = getIntent();
-        if (mainActIntent.hasExtra("")) {
+        mainActIntent = getIntent();
+        /*if (mainActIntent.hasExtra("")) {
             String someText = mainActIntent.getStringExtra("");
         }*/
-        posterUrl = getIntent().getStringExtra("poster");
-        movie_id = getIntent().getExtras().getInt("movie_id");
-        logoUrl = getIntent().getExtras().getString("logo");
-        name = getIntent().getStringExtra("name");
-        description = getIntent().getStringExtra("desc");
-        genre = getIntent().getStringExtra("genre") ;
-        year = getIntent().getExtras().getInt("year");
+        if (mainActIntent.getStringExtra("action").equals("search")) {
 
-        descTextview.setText("Описание:" + description);
-        yearTextview.setText("Год: " + year);
-        genreTextview.setText("Жанр: "+genre);
-        nameTextview.setText("Название: "+ name);
+            nameTextview.setFocusable(false);
+            nameTextview.setFocusableInTouchMode(false);
+            nameTextview.setClickable(false);
+            genreTextview.setFocusable(false);
+            genreTextview.setFocusableInTouchMode(false);
+            genreTextview.setClickable(false);
+            yearTextview.setFocusable(false);
+            yearTextview.setFocusableInTouchMode(false);
+            yearTextview.setClickable(false);
+            descTextview.setFocusable(false);
+            descTextview.setFocusableInTouchMode(false);
+            descTextview.setClickable(false);
 
+            posterUrl = getIntent().getStringExtra("poster");
+            movie_id = getIntent().getExtras().getInt("movie_id");
+            logoUrl = getIntent().getExtras().getString("logo");
+            name = getIntent().getStringExtra("name");
+            description = getIntent().getStringExtra("desc");
+            genre = getIntent().getStringExtra("genre");
+            year = getIntent().getExtras().getInt("year");
 
+            descTextview.setText("Описание:" + description);
+            yearTextview.setText("Год: " + year);
+            genreTextview.setText("Жанр: " + genre);
+            nameTextview.setText("Название: " + name);
 
-        Picasso.with(FilmItemActivity.this)
-                .load(logoUrl)
-                .placeholder(R.drawable.poster_placeholder)
-                .error(R.drawable.poster_error)
-                .into(logoImg);
+            Picasso.with(FilmItemActivity.this)
+                    .load(logoUrl)
+                    .placeholder(R.drawable.poster_placeholder)
+                    .error(R.drawable.poster_error)
+                    .into(logoImg);
 
-        Picasso.with(FilmItemActivity.this)
-                .load(posterUrl)
-                .placeholder(R.drawable.poster_placeholder)
-                .error(R.drawable.poster_error)
-                .into(posterImg);
+            Picasso.with(FilmItemActivity.this)
+                    .load(posterUrl)
+                    .placeholder(R.drawable.poster_placeholder)
+                    .error(R.drawable.poster_error)
+                    .into(posterImg);
 
-        AppDB appDB = Room.databaseBuilder(getApplicationContext(),AppDB.class,nameDB)
-                .allowMainThreadQueries()
-                .fallbackToDestructiveMigration()
-                .build();
-        movieDBInterface = appDB.movieDBInterface();
+            movieDBInterface = App.getInstance().getDatabase().movieDBInterface();
+        } else if (mainActIntent.getStringExtra("action").equals("add")) {
+            kp_aboutButton.setClickable(false);
+            kp_aboutButton.setVisibility(View.INVISIBLE);
+            descTextview.setHint("Введите описание");
+            yearTextview.setHint("Введите Год: ");
+            genreTextview.setHint("Введите Жанр: ");
+            nameTextview.setHint("Ввведите Название: ");
+
+            name = String.valueOf(nameTextview.getText());
+            description = String.valueOf(descTextview.getText());
+            genre = String.valueOf(genreTextview.getText());
+            //year =Integer.parseInt(String.valueOf(yearTextview.getText()));
+        }
+
     }
 
     public void onKpAboutButtonClick(View view) {

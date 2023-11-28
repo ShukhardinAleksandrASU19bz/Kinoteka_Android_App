@@ -1,5 +1,6 @@
 package ru.ashukhardin.kinoteka.utils;
 
+import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
@@ -22,6 +23,9 @@ public interface MovieDBInterface {
     void update(movie item);
     @Query("SELECT * FROM 'movie'")
     List<movie> getAll();
+
+    @Query("SELECT * FROM 'movie'")
+    LiveData<List<movie>> getAllLive();
 
     @Query("SELECT * FROM 'movie' where id IN (:id)")
     movie getmovieById(int id);
