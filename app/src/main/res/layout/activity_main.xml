@@ -27,11 +27,13 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="90dp"
+            android:background="@color/white"
+            android:layout_marginLeft="24dp"
             android:orientation="horizontal">
 
             <EditText
                 android:id="@+id/main_search_field"
-                android:layout_width="300dp"
+                android:layout_width="279dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical|start"
                 android:hint="@string/search_word"
@@ -50,8 +52,39 @@
         </LinearLayout>
 
         <RadioGroup
+            android:id="@+id/rg_MA_searchRadioGroup"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:background="@color/white">
+
+            <RadioButton
+                android:id="@+id/radio_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="24dp"
+                android:layout_weight="1"
+                android:checked="true"
+                android:text="По названию" />
+
+            <RadioButton
+                android:id="@+id/radio_id"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="24dp"
+                android:layout_weight="1"
+                android:text="По Id"
+                 />
+
+            <RadioButton
+                android:id="@+id/radio_random"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="24dp"
+                android:layout_weight="1"
+                android:text="Случайный"
+                 />
+            />
+        </RadioGroup>
 
     </LinearLayout>
 
@@ -89,7 +122,7 @@
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
         android:onClick="onKPButtonClick"
-        android:text="Кинопоиск -Главная"
+        android:text="Кинопоиск Главная"
         app:layout_constraintBottom_toTopOf="@+id/bt_addMovieMain"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

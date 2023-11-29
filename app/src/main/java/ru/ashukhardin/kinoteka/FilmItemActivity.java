@@ -56,9 +56,6 @@ public class FilmItemActivity extends AppCompatActivity {
         posterImg = findViewById(R.id.iV_poster);
 
         mainActIntent = getIntent();
-        /*if (mainActIntent.hasExtra("")) {
-            String someText = mainActIntent.getStringExtra("");
-        }*/
         if (mainActIntent.getStringExtra("action").equals("search")) {
 
             nameTextview.setFocusable(false);
